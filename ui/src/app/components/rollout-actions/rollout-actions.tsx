@@ -18,7 +18,7 @@ export const RolloutActionButton = (props: {action: RolloutAction; rollout: Roll
     const namespaceCtx = React.useContext(NamespaceContext);
 
     const restartedAt = formatTimestamp(props.rollout.restartedAt || '');
-    const isDeploying = props.rollout.status === RolloutStatus.Progressing || props.rollout.status === RolloutStatus.Paused
+    const isDeploying = props.rollout.status === RolloutStatus.Progressing || props.rollout.status === RolloutStatus.Paused;
 
     const actionMap = new Map<RolloutAction, ActionButtonProps & {body?: any}>([
         [
@@ -47,7 +47,7 @@ export const RolloutActionButton = (props: {action: RolloutAction; rollout: Roll
                 label: 'ABORT',
                 icon: 'fa-exclamation-circle',
                 action: api.rolloutServiceAbortRollout,
-                disabled: !isDeploying,
+                disabled: isDeploying,
                 shouldConfirm: true,
             },
         ],
@@ -58,7 +58,7 @@ export const RolloutActionButton = (props: {action: RolloutAction; rollout: Roll
                 icon: 'fa-chevron-circle-up',
                 action: api.rolloutServicePromoteRollout,
                 body: {full: false},
-                disabled: !isDeploying,
+                disabled: isDeploying,
                 shouldConfirm: true,
             },
         ],
@@ -69,7 +69,7 @@ export const RolloutActionButton = (props: {action: RolloutAction; rollout: Roll
                 icon: 'fa-arrow-circle-up',
                 action: api.rolloutServicePromoteRollout,
                 body: {full: true},
-                disabled: !isDeploying,
+                disabled: isDeploying,
                 shouldConfirm: true,
             },
         ],
